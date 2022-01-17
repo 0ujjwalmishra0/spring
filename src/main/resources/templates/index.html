@@ -22,18 +22,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="product : ${books}">
-                <td th:text="${books.id}">Book ID</td>
-                <td th:text="${books.name}">Name</td>
-                <td th:text="${books.author}">Author</td>
-                <td th:text="${books.issueDate}">Issue Date</td>
-                <td th:text="${books.returnDate}">Return Date</td>
-                <td th:text="${books.price}">Price</td>
-                <td>
-                    <a th:href="/@{'/edit/' + ${books.id}}">Edit</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a th:href="/@{'/delete/' + ${books.id}}">Delete</a>
-                </td>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.id}">Book ID</td>
+                <td th:text="${book.name}">Name</td>
+                <td th:text="${book.author}">Author</td>
+                <td th:text="${book.issuedate}">Issue Date</td>
+                <td th:text="${book.returndate}">Return Date</td>
+                <td th:text="${book.price}">Price</td>
+                
+                
             </tr>
         </tbody>
     </table>
