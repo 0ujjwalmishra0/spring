@@ -38,18 +38,23 @@ public class UserController {
 	
 	
 	@PostMapping("issueBook")
-	Loan issueBook(@RequestParam("userId") long user_id,@RequestParam("bookId") long book_id) {
-		return userService.issueBook(book_id, user_id);
+	Loan issueBook(@RequestParam("userId") long userId,@RequestParam("bookId") long bookId) {
+		return userService.issueBook(bookId, userId);
 	}
 	
 	@PutMapping("returnBook")
-	Loan returnBook(@RequestParam("userId") long user_id,@RequestParam("bookId") long book_id) {
-		return userService.returnBook(book_id, user_id);
+	Loan returnBook(@RequestParam("userId") long userId,@RequestParam("bookId") long bookId) {
+		return userService.returnBook(bookId, userId);
 	}
 	
 	@GetMapping("loans")
 	List<Loan> getAllLoans(){
 		return userService.getAllLoans();
+	}
+	
+	@GetMapping("loan")
+	Loan getLoan(@RequestParam("userId") long userId, @RequestParam("bookId") long bookId){
+		return userService.findLoan(bookId, userId);
 	}
 	
 	@GetMapping("fine")

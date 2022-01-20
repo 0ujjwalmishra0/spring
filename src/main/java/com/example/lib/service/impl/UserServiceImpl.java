@@ -78,38 +78,38 @@ public class UserServiceImpl implements UserService{
 		
 		long millis=System.currentTimeMillis();  
         Date date=new java.sql.Date(millis); 
-		loan.setBook_id(book_id);
-		loan.setUser_id(user_id);
-		loan.setLoan_date(date);
+		loan.setBookId(book_id);
+		loan.setUserId(user_id);
+		loan.setLoanDate(date);
 		return loanRepo.save(loan);
 	}
-//
-//	@Override
-//	public Loan returnBook(long book_id, long user_id) {
-//		Loan loan= loanRepo.findByBook_idAndUser_idAndLoan_date(book_id, user_id, null)
-//		Book book= bookRepo.getById(book_id);
-//		int currentCopies= book.getCopies();
-//		int currentIssuedCopies= book.getIssuedCopies();
-//		long millis=System.currentTimeMillis();  
-//        Date date=new java.sql.Date(millis);
-//		loan.setBook_id(book_id);
-//		loan.setUser_id(user_id);
-//		loan.setReturn_date(date);
-//		long diff= Math.round((loan.getLoan_date().getTime() - date.getTime())/24*3600*1000);
-//		long fine= 3;
-//		if(diff>7) {
-//			fine= 5*(diff-7);
-////			loan.setFine(fine);
-////			updateFine(user_id,fine);
-//		}
-//
-//		loan.setFine(fine);
-//		updateFine(user_id,fine);
-//		book.setIssuedCopies(currentIssuedCopies-1);
-//		book.setCopies(currentCopies+1);
-//		bookRepo.save(book);
-//		return loanRepo.save(loan);
-//	}
+
+	@Override
+	public Loan returnBook(long book_id, long user_id) {
+		Loan loan= loanRepo.findByBookIdAndUserId(book_id, user_id);
+		Book book= bookRepo.getById(book_id);
+		int currentCopies= book.getCopies();
+		int currentIssuedCopies= book.getIssuedCopies();
+		long millis=System.currentTimeMillis();  
+        Date date=new java.sql.Date(millis);
+		loan.setBookId(book_id);
+		loan.setUserId(user_id);
+		loan.setReturnDate(date);
+		long diff= Math.round((loan.getLoanDate().getTime() - date.getTime())/24*3600*1000);
+		long fine= 3;
+		if(diff>7) {
+			fine= 5*(diff-7);
+//			loan.setFine(fine);
+//			updateFine(user_id,fine);
+		}
+
+		loan.setFine(fine);
+		updateFine(user_id,fine);
+		book.setIssuedCopies(currentIssuedCopies-1);
+		book.setCopies(currentCopies+1);
+		bookRepo.save(book);
+		return loanRepo.save(loan);
+	}
 
 	@Override
 	public User updateFine(long id, long fine) {
@@ -126,6 +126,12 @@ public class UserServiceImpl implements UserService{
 	
 	public List<Fine> getAllFine(){
 		return fineRepo.findAll();
+	}
+
+	@Override
+	public Loan findLoan(long book_id, long user_id) {
+		// TODO Auto-generated method stub
+		return loanRepo.findByBookIdAndUserId(book_id, user_id);
 	}
 
 }

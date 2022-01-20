@@ -12,10 +12,10 @@ public class Loan {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
 	long id;
-	long book_id;
-	long user_id;
-	Date loan_date;
-	Date return_date;
+	long bookId;
+	long userId;
+	Date loanDate;
+	Date returnDate;
 	long fine;
 	
 	public long getFine() {
@@ -30,28 +30,29 @@ public class Loan {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getBook_id() {
-		return book_id;
+	public long getBookId() {
+		return bookId;
 	}
-	public void setBook_id(long book_id) {
-		this.book_id = book_id;
+	public void setBookId(long bookId) {
+		this.bookId = bookId;
 	}
-	public long getUser_id() {
-		return user_id;
+	public long getUserId() {
+		return userId;
 	}
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
-	public Date getLoan_date() {
-		return loan_date;
+	public Date getLoanDate() {
+		return loanDate;
 	}
-	public void setLoan_date(Date loan_date) {
-		this.loan_date = loan_date;
+	public void setLoanDate(Date loanDate) {
+		this.loanDate = loanDate;
 	}
-	public Date getReturn_date() {
-		return return_date;
+	public Date getReturnDate() {
+		return returnDate;
 	}
-	public void setReturn_date(Date return_date) {
-		this.return_date = return_date;
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
 	}
+	
 }

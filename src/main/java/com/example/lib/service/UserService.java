@@ -4,7 +4,6 @@ import java.util.List;
 import com.example.lib.model.Fine;
 import com.example.lib.model.Loan;
 import com.example.lib.model.User;
-import java.sql.Date;
 
 public interface UserService {
 
@@ -18,5 +17,5 @@ public interface UserService {
 	User updateFine(long id,long fine);
 	List<Loan> getAllLoans();
 	List<Fine> getAllFine();
-	Loan findLoan(long book_id,long user_id,Date loan_date);
+	Loan findLoan(long book_id,long user_id);
 }
