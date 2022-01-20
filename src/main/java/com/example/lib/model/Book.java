@@ -13,6 +13,8 @@ public class Book {
 	private String title;
 	private String publication;
 	private int copies;
+	private int issuedCopies;
+	private String author;
 	
 	public long getId() {
 		return id;
@@ -37,6 +39,18 @@ public class Book {
 	}
 	public void setCopies(int copies) {
 		this.copies = copies;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public int getIssuedCopies() {
+		return issuedCopies;
+	}
+	public void setIssuedCopies(int issuedCopies) {
+		this.issuedCopies = issuedCopies;
 	}
 
 }

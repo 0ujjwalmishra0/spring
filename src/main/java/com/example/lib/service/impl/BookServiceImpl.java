@@ -43,15 +43,22 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public void deleteBook(long id) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public List<Book> searchBook(String title) {
 		// TODO Auto-generated method stub
-		return bookRepo.searchBookByTitle(title);
+		return bookRepo.findByTitle(title);
 	}
+
+	@Override
+	public List<Book> searchBookByAuthor(String author) {
+		// TODO Auto-generated method stub
+		return bookRepo.findByAuthor(author);
+	}
+	
+	
 
 
 }

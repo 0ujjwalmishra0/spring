@@ -21,14 +21,13 @@ import com.example.lib.service.BookService;
 @RequestMapping("/api/books")
 public class BookController {
 	private BookService bookService;
-	private BookRepo bookRepo;
 
 	public BookController(BookService bookService) {
 		super();
 		this.bookService = bookService;
 	}
 	@PostMapping
-	public ResponseEntity<Book> saveEmployee(@RequestBody Book book){
+	public ResponseEntity<Book> saveBook(@RequestBody Book book){
 		return new ResponseEntity<Book>(bookService.addBook(book), HttpStatus.CREATED);
 	}
 	
@@ -40,7 +39,11 @@ public class BookController {
 	@GetMapping("/search")
 	public List<Book> search(@RequestParam("title") String title){
 		return bookService.searchBook(title);
-		//return bookRepo.searchBookByTitle(title); 
+	}
+	
+	@GetMapping("/searchByAuthor")
+	public List<Book> searchBookByAuthor(@RequestParam("author") String author){
+		return bookService.searchBookByAuthor(author);
 	}
 	
 	@GetMapping("{id}")

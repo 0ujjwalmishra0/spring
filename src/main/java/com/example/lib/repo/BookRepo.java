@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface BookRepo extends JpaRepository<Book, Long>{
 //	@Query("select u from Book where u.title =:x")
-	@Query(value= "select * from book where title =:x",nativeQuery = true)
-	public List<Book> searchBookByTitle(@Param("x") String title);
+//	@Query(value= "select * from book where title =:x",nativeQuery = true)
+//	public List<Book> searchBookByTitle(@Param("x") String title);
+	public List<Book> findByTitle(String title);
+	public List<Book> findByAuthor(String author);
 }

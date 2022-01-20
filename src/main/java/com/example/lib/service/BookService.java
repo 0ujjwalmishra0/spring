@@ -11,7 +11,10 @@ public interface BookService {
 	Book getBookById(long id);
 	Book updateBookById(Book e, long id);
 	void deleteBook(long id);
-//	@Query("select u from Book where u.title =:x")
+
+	@Query(value= "select * from book where title =:x",nativeQuery = true)
 	public List<Book> searchBook(@Param("x") String title);
+	
+	public List<Book> searchBookByAuthor(String author);
 	
 }

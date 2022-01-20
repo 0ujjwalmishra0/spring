@@ -16,7 +16,14 @@ public class Loan {
 	long user_id;
 	Date loan_date;
 	Date return_date;
+	long fine;
 	
+	public long getFine() {
+		return fine;
+	}
+	public void setFine(long fine) {
+		this.fine = fine;
+	}
 	public long getId() {
 		return id;
 	}

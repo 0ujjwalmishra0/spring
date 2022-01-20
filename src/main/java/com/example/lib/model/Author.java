@@ -10,5 +10,11 @@ public class Author {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String name;
+	private String author_name;
+	public String getAuthor_name() {
+		return author_name;
+	}
+	public void setAuthor_name(String author_name) {
+		this.author_name = author_name;
+	}
 }

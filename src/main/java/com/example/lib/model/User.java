@@ -15,6 +15,7 @@ public class User {
 	private String name;
 	private Date joined_date;
 	private String status;
+	private long fine;
 	public long getId() {
 		return id;
 	}
@@ -38,6 +39,12 @@ public class User {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public long getFine() {
+		return fine;
+	}
+	public void setFine(long fine) {
+		this.fine = fine;
 	}
 	
 }
