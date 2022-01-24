@@ -1,19 +1,21 @@
 package com.example.lib.service.impl;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.lib.exception.ResourceNotFoundException;
 import com.example.lib.model.Book;
 import com.example.lib.model.Fine;
 import com.example.lib.model.Loan;
+import com.example.lib.model.Role;
 import com.example.lib.model.User;
 import com.example.lib.repo.BookRepo;
 import com.example.lib.repo.FineRepo;
 import com.example.lib.repo.LoanRepo;
+import com.example.lib.repo.RoleRepo;
 import com.example.lib.repo.UserRepo;
-import com.example.lib.service.BookService;
 import com.example.lib.service.UserService;
 import java.sql.Date;
 
@@ -27,15 +29,30 @@ public class UserServiceImpl implements UserService{
 	private FineRepo fineRepo;
 	@Autowired
 	private BookRepo bookRepo;
+	@Autowired
+	private RoleRepo roleRepo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+
 
 	@Override
 	public User addUser(User user) {
 		long millis=System.currentTimeMillis();  
         Date date=new java.sql.Date(millis); 
 		user.setJoined_date(date);
+		
+		Role role = roleRepo.findById("User").get();
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(role);
+        user.setRole(userRoles);
+		
+        String password= user.getUserPassword();
+		user.setUserPassword(getEncodedPassword(password));
 		return userRepo.save(user);
 	}
-
+	
+	
 	@Override
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
@@ -44,22 +61,34 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserById(long id) {
-		return userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Book","ID",id));
+		return userRepo.findById(String.valueOf(id)).orElseThrow(()->new ResourceNotFoundException("Book","ID",id));
 	}
 
 	@Override
 	public User updateUserById(User user, long id) {
-		User existingUser= userRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee","Id",id));
+		User existingUser= userRepo.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException("Employee","Id",id));
 		existingUser.setName(user.getName());
 		existingUser.setStatus(user.getStatus());
 		//save to database
 		userRepo.save(existingUser);
 		return existingUser;
 	}
+	
+	@Override
+	public User makeAdmin(long id) {
+		User existingUser= userRepo.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException("Employee","Id",id));
+		
+		Role role = roleRepo.findById("Admin").get();
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(role);
+        existingUser.setRole(userRoles);
+		userRepo.save(existingUser);
+		return existingUser;
+	}
 
 	@Override
 	public void deleteUser(long id) {
-		User user= userRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("User","id",id));
+		User user= userRepo.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException("User","id",id));
 		userRepo.delete(user);
 	}
 	
@@ -113,7 +142,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User updateFine(long id, long fine) {
-		User user= userRepo.getById(id);
+		User user= userRepo.getById(String.valueOf(id));
 		user.setFine(fine);
 		return userRepo.save(user);
 	}
@@ -132,6 +161,16 @@ public class UserServiceImpl implements UserService{
 	public Loan findLoan(long book_id, long user_id) {
 		// TODO Auto-generated method stub
 		return loanRepo.findByBookIdAndUserId(book_id, user_id);
+	}
+	
+	public String getEncodedPassword(String password) {
+		return passwordEncoder.encode(password);
+	}
+
+	@Override
+	public User getUserByUsername(String userName) {
+		// TODO Auto-generated method stub
+		return userRepo.findByUserName(userName);
 	}
 
 }

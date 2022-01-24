@@ -10,6 +10,7 @@ public interface UserService {
 	User addUser(User user);
 	List<User> getAllUsers();
 	User getUserById(long id);
+	User getUserByUsername(String userName);
 	User updateUserById(User u,long id);
 	void deleteUser(long id);
 	Loan issueBook(long book_id,long user_id);
@@ -18,4 +19,5 @@ public interface UserService {
 	List<Loan> getAllLoans();
 	List<Fine> getAllFine();
 	Loan findLoan(long book_id,long user_id);
+	User makeAdmin(long id);
 }
