@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lib.exception.ResourceNotFoundException;
 import com.example.lib.model.Book;
+import com.example.lib.model.User;
 import com.example.lib.repo.BookRepo;
 import com.example.lib.service.BookService;
 
@@ -36,14 +37,19 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public Book updateBookById(Book e, long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Book updateBookById(Book b, long id) {
+		Book book = bookRepo.getById(id);
+		book.setAuthor(b.getAuthor());
+		book.setCopies(b.getCopies());
+		book.setPublication(b.getPublication());
+		book.setTitle(b.getPublication());
+		return bookRepo.save(book);
 	}
 
 	@Override
 	public void deleteBook(long id) {
-		
+		Book book = bookRepo.getById(id);
+		bookRepo.delete(book);
 	}
 
 	@Override

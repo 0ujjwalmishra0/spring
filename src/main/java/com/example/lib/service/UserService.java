@@ -12,7 +12,7 @@ public interface UserService {
 	User getUserById(long id);
 	User getUserByUsername(String userName);
 	User updateUserById(User u,long id);
-	void deleteUser(long id);
+	String deleteUser(long id);
 	Loan issueBook(long book_id,long user_id);
 	Loan returnBook(long book_id,long user_id);
 	User updateFine(long id,long fine);

@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService{
 		User existingUser= userRepo.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException("Employee","Id",id));
 		existingUser.setName(user.getName());
 		existingUser.setStatus(user.getStatus());
+		existingUser.setStatus(user.getUserName());
+		existingUser.setStatus(user.getUserPassword());
 		//save to database
 		userRepo.save(existingUser);
 		return existingUser;
@@ -87,9 +89,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void deleteUser(long id) {
+	public String deleteUser(long id) {
 		User user= userRepo.findById(String.valueOf(id)).orElseThrow(()-> new ResourceNotFoundException("User","id",id));
 		userRepo.delete(user);
+		return "user with has been deleted!";
 	}
 	
 	public Loan issueBook(long book_id,long user_id) {
